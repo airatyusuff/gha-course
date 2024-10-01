@@ -8,7 +8,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  exercise_1:
+  job_1:
     runs-on: ubuntu-latest # type of runners a job can use
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -26,37 +26,40 @@ jobs:
           name: artifact_file
           path: artifact.txt
   
-  
-  exercise_2:
+  job_2:
     runs-on: macos-12
     steps:
       - name: Show all default GH variables for a macOS runner
         run: env
 
-  exercise_3:
+  job_3:
     name: Persisting Data - download artifact from previous job
-    needs: exercise_1
+    needs: job_1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: artifact_file
-          run: |
-            cat artifact.txt | tee copy_artifact.txt
-            echo "appended data" >> copy_artifact.txt
+  
+      - name: utilise contents of artifact
+        run: |
+          cat artifact.txt | tee copy_artifact.txt
+          echo "appended data" >> copy_artifact.txt
       
-      - name: Another artifact
+      - name: Upload annother artifact
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: artifact_copy
-          path: artifact_copy.txt
+          name: copy_artifact
+          path: copy_artifact.txt
 
-  exercise_3b:
-    needs: exercise_3
+  job_3b:
+    name: Show second artifact
+    needs: job_3
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: artifact_copy
-          run: cat copy_artifact.txt
+      - name: display second artifact
+        run: cat copy_artifact.txt
         
