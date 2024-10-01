@@ -20,7 +20,7 @@ jobs:
   
   exercise_2:
     name: Environment Vars
-    runs-on: linux
+    runs-on: macos-12
     steps:
-      - name: Show all default GH variables for a linux runner
+      - name: Show all default GH variables for a macOS runner
         run: env
