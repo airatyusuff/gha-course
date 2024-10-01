@@ -2,6 +2,8 @@ name: GHA for DevOps course
 
 # Controls when the workflow will run
 on:
+  push:
+    branches: main
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -59,7 +61,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: artifact_copy
+          name: copy_artifact
       - name: display second artifact
         run: cat copy_artifact.txt
         
