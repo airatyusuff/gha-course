@@ -1,0 +1,17 @@
+name: GHA course Day 2
+
+on:
+  workflow_dispatch:
+
+jobs:
+    self_hosted_runner:
+        runs-on: [self-hosted, gha-course]
+        steps:
+            - name: running inside self-hosted Linux runner
+              run: |
+                echo "I'm running on my Azure Linux VM" | tee output.txt
+                cat output.txt
+
+            - name: Sleep runner
+              run: sleep 100
+            
