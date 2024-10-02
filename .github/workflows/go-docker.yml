@@ -27,7 +27,7 @@
 name: Go web-server
 
 env:
-  AZURE_WEBAPP_NAME: ghacourse
+  AZURE_WEBAPP_NAME: gha
 
 on:
   push:
@@ -74,13 +74,14 @@ jobs:
         - name: 'Run tests'
           run: |
               echo "Running tests..."
+              cd go-app/
               go test ./...
 
   deploy:
     permissions:
       contents: none
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
 
     steps:
       - name: Lowercase the repo name and username
