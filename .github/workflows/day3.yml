@@ -15,3 +15,8 @@ jobs:
             - name: Sleep runner
               run: sleep 100
             
+            - uses: actions/upload-artifact@v4.4.0
+              with:
+                name: self_hosted
+                path: output.txt
+            
