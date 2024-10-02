@@ -63,6 +63,9 @@ jobs:
           push: true
           tags: ghacourse.azurecr.io/${{ env.REPO }}:${{ github.sha }}
           file: ./go-app/Dockerfile
+          
+        # if I were to deploy the Go api with the db setup
+        #   secrets: DBTYPE=${{ secrets.DBTYPE }}, DBHOST=${{ secrets.DBHOST }}, DBNAME=${{ secrets.DBNAME }}, DBUSER=${{ secrets.DBUSER }}, DBPASSWORD=${{ secrets.DBPASSWORD }}, DBSSLMODE=${{ secrets.DBSSSLMODE }}
 
   deploy:
     permissions:
@@ -76,8 +79,17 @@ jobs:
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: Azure/webapps-deploy@v3.0.1
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: 'ghacourse.azurecr.io/${{ env.REPO }}:${{ github.sha }}'
+        
+        # if I were to deploy the Go api with the db setup
+        # env:
+        #     DBTYPE: ${{ secrets.DBTYPE }}
+        #     DBHOST: ${{ secrets.DBHOST }}
+        #     DBNAME: ${{ secrets.DBNAME }}
+        #     DBUSER: ${{ secrets.DBUSER }}
+        #     DBPASSWORD: ${{ secrets.DBPASSWORD }}
+        #     DBSSLMODE: ${{ secrets.DBSSSLMODE }}
