@@ -13,7 +13,7 @@ jobs:
                 cat output.txt
 
             - name: Sleep runner
-              run: sleep 100
+              run: sleep 30 #sleep for 30sec
             
             - uses: actions/upload-artifact@v4.4.0
               with:
