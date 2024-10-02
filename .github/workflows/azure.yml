@@ -1,0 +1,23 @@
+name: Deploy Azure resources #incomplete due to insufficient privileges
+
+on:
+    workflow_dispatch: 
+
+jobs:
+    provision:
+        runs-on: ubuntu-latest
+     
+        steps:
+            - uses: actions/checkout@v4
+            - name: Azure Login
+              uses: Azure/login@v2.2.0
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            # - name: Deploy with ARM template
+            #   uses: Azure/arm-deploy@v2
+            #   with:
+            #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION}}
+
+
+
