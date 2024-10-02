@@ -67,6 +67,15 @@ jobs:
         # if I were to deploy the Go api with the db setup
         #   secrets: DBTYPE=${{ secrets.DBTYPE }}, DBHOST=${{ secrets.DBHOST }}, DBNAME=${{ secrets.DBNAME }}, DBUSER=${{ secrets.DBUSER }}, DBPASSWORD=${{ secrets.DBPASSWORD }}, DBSSLMODE=${{ secrets.DBSSSLMODE }}
 
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+        - name: 'Run tests'
+          run: |
+              echo "Running tests..."
+              go test ./...
+
   deploy:
     permissions:
       contents: none
